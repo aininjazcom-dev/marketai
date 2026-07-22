@@ -30,11 +30,19 @@ export const aiService = {
 
         const data = await response.json();
         
-        if (!data.data || !data.data[0] || !data.data[0].url) {
-          throw new Error("Invalid API Response. We expected an image URL but received: " + JSON.stringify(data));
+        if (!data.data || !data.data[0]) {
+          throw new Error("Invalid API Response. We expected an image but received: " + JSON.stringify(data));
         }
 
-        return data.data[0].url;
+        const imageObj = data.data[0];
+
+        if (imageObj.b64_json) {
+          return `data:image/png;base64,${imageObj.b64_json}`;
+        } else if (imageObj.url) {
+          return imageObj.url;
+        } else {
+          throw new Error("Invalid API Response. Missing URL or b64_json: " + JSON.stringify(data));
+        }
       };
 
       // Run 3 requests in parallel
