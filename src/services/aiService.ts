@@ -7,30 +7,39 @@ export const aiService = {
     }
 
     try {
-      // Use the proxy route to bypass CORS issues from the browser
-      const response = await fetch('/api/openai/v1/images/generations', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${apiKey}`
-        },
-        body: JSON.stringify({
-          model: "dall-e-2",
-          prompt: prompt,
-          n: 3,
-          size: "512x512" // Using smaller size for thumbnails to save cost and time
-        })
-      });
+      // DALL-E 3 only supports n=1, so we make 3 parallel requests to get 3 thumbnails
+      const generateSingleImage = async () => {
+        const response = await fetch('/api/openai/v1/images/generations', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${apiKey}`
+          },
+          body: JSON.stringify({
+            model: "dall-e-3",
+            prompt: prompt,
+            n: 1,
+            size: "1024x1024" // DALL-E 3 requires at least 1024x1024
+          })
+        });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error?.message || "Failed to generate images");
-      }
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.error?.message || "Failed to generate image");
+        }
 
-      const data = await response.json();
+        const data = await response.json();
+        return data.data[0].url;
+      };
+
+      // Run 3 requests in parallel
+      const urls = await Promise.all([
+        generateSingleImage(),
+        generateSingleImage(),
+        generateSingleImage()
+      ]);
       
-      // Map the response to get the array of URLs
-      return data.data.map((item: { url: string }) => item.url);
+      return urls;
 
     } catch (error) {
       console.error("Error generating posters:", error);
