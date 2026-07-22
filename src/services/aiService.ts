@@ -7,8 +7,8 @@ export const aiService = {
     }
 
     try {
-      // Using DALL-E 2 since it allows generating multiple images (n=3) in one request for thumbnails
-      const response = await fetch('https://api.openai.com/v1/images/generations', {
+      // Use the proxy route to bypass CORS issues from the browser
+      const response = await fetch('/api/openai/v1/images/generations', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
