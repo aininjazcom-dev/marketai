@@ -30,6 +30,17 @@ export default function CreatePosterScreen() {
     }
   };
 
+  const handleDownload = () => {
+    if (!selectedImage) return;
+    
+    const link = document.createElement('a');
+    link.href = selectedImage;
+    link.download = `poster-${Date.now()}.png`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div className="flex flex-col h-full bg-background relative">
       <TopBar title="Create Poster" showBack onBack={() => navigate(-1)} />
@@ -129,7 +140,10 @@ export default function CreatePosterScreen() {
           </div>
 
           <div className="p-4 pb-safe bg-gradient-to-t from-black/80 to-transparent">
-            <button className="w-full bg-primary text-white py-4 rounded-xl font-bold text-[15px] flex items-center justify-center space-x-2">
+            <button 
+              onClick={handleDownload}
+              className="w-full bg-primary text-white py-4 rounded-xl font-bold text-[15px] flex items-center justify-center space-x-2 hover:bg-primary/90 transition-colors"
+            >
               <Download size={20} />
               <span>Download High-Res</span>
             </button>
