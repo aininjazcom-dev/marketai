@@ -29,7 +29,7 @@ export const aiService = {
         }
 
         const data = await response.json();
-        
+
         if (!data.data || !data.data[0]) {
           throw new Error("Invalid API Response. We expected an image but received: " + JSON.stringify(data));
         }
@@ -47,8 +47,6 @@ export const aiService = {
 
       // Run 3 requests in parallel
       const urls = await Promise.all([
-        generateSingleImage(),
-        generateSingleImage(),
         generateSingleImage()
       ]);
 
