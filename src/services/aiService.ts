@@ -16,10 +16,10 @@ export const aiService = {
             'Authorization': `Bearer ${apiKey}`
           },
           body: JSON.stringify({
-            model: "dall-e-3",
+            model: "gpt-image-1-mini",
             prompt: prompt,
             n: 1,
-            size: "1024x1024" // DALL-E 3 requires at least 1024x1024
+            size: "512x512" // DALL-E 3 requires at least 1024x1024
           })
         });
 
