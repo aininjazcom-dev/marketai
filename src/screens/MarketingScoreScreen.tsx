@@ -1,6 +1,5 @@
 import { useNavigate } from 'react-router-dom';
 import TopBar from '../components/TopBar';
-import BottomNav from '../components/BottomNav';
 import { LineChart, Line, ResponsiveContainer } from 'recharts';
 import { Camera, MousePointer, Users, Megaphone } from 'lucide-react';
 

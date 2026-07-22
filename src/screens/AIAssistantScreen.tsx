@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import TopBar from '../components/TopBar';
-import { Lightbulb, Edit3, Tag, Hash, TrendingUp, MessageSquare, Send, Mic } from 'lucide-react';
+import { Lightbulb, Edit3, Tag, Hash, TrendingUp, MessageSquare, Mic } from 'lucide-react';
 
 export default function AIAssistantScreen() {
   const navigate = useNavigate();

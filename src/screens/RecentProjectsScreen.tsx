@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import TopBar from '../components/TopBar';
-import BottomNav from '../components/BottomNav';
 
 export default function RecentProjectsScreen() {
   const navigate = useNavigate();
