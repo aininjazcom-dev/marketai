@@ -83,35 +83,26 @@ export default function CreatePosterScreen() {
           </button>
         </div>
 
-        {/* Loading Skeletons */}
+        {/* Loading Skeleton */}
         {isLoading && (
           <div className="space-y-3">
-            <h3 className="text-sm font-semibold text-gray-800 px-1">Crafting your posters...</h3>
-            <div className="grid grid-cols-2 gap-3">
-              {[1, 2, 3].map((i) => (
-                <div key={i} className={`bg-gray-200 animate-pulse rounded-xl aspect-square ${i === 3 ? 'col-span-2 aspect-[2/1]' : ''}`} />
-              ))}
-            </div>
+            <h3 className="text-sm font-semibold text-gray-800 px-1">Crafting your poster...</h3>
+            <div className="bg-gray-200 animate-pulse rounded-xl aspect-square w-full" />
           </div>
         )}
 
-        {/* Results Grid */}
+        {/* Result Single Image */}
         {thumbnails.length > 0 && !isLoading && (
           <div className="space-y-3">
-            <h3 className="text-sm font-semibold text-gray-800 px-1">Select a version to upscale</h3>
-            <div className="grid grid-cols-2 gap-3">
-              {thumbnails.map((url, i) => (
-                <div 
-                  key={i} 
-                  onClick={() => setSelectedImage(url)}
-                  className={`relative cursor-pointer group rounded-xl overflow-hidden shadow-sm border-2 transition-all ${
-                    selectedImage === url ? 'border-primary' : 'border-transparent'
-                  } ${i === 2 ? 'col-span-2 aspect-[2/1]' : 'aspect-square'}`}
-                >
-                  <img src={url} alt={`Option ${i+1}`} className="w-full h-full object-cover" />
-                  <div className={`absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors ${selectedImage === url ? 'bg-black/0' : ''}`} />
-                </div>
-              ))}
+            <h3 className="text-sm font-semibold text-gray-800 px-1">Your Generated Poster</h3>
+            <div 
+              onClick={() => setSelectedImage(thumbnails[0])}
+              className="relative cursor-pointer group rounded-xl overflow-hidden shadow-sm border-2 border-transparent hover:border-primary transition-all aspect-square w-full"
+            >
+              <img src={thumbnails[0]} alt="Generated Poster" className="w-full h-full object-cover" />
+              <div className="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+                <span className="bg-white text-gray-900 px-4 py-2 rounded-lg font-semibold shadow-md">Click to Preview & Download</span>
+              </div>
             </div>
           </div>
         )}
