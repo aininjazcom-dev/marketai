@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import MobileLayout from './components/MobileLayout';
 import HomeDashboard from './screens/HomeDashboard';
 import MarketingKitScreen from './screens/MarketingKitScreen';
+import CreatePosterScreen from './screens/CreatePosterScreen';
 import AIAssistantScreen from './screens/AIAssistantScreen';
 import RecentProjectsScreen from './screens/RecentProjectsScreen';
 import NotificationsScreen from './screens/NotificationsScreen';
@@ -21,7 +22,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomeDashboard />} />
           <Route path="/kit" element={<MarketingKitScreen />} />
-          <Route path="/poster" element={<PlaceholderScreen title="Create Poster" />} />
+          <Route path="/poster" element={<CreatePosterScreen />} />
           <Route path="/ad" element={<PlaceholderScreen title="Run Meta Ad" />} />
           <Route path="/assistant" element={<AIAssistantScreen />} />
           <Route path="/score" element={<MarketingScoreScreen />} />
