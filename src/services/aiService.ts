@@ -19,7 +19,7 @@ export const aiService = {
             model: "gpt-image-1-mini",
             prompt: prompt,
             n: 1,
-            size: "1024x1024" // DALL-E 3 requires at least 1024x1024
+            size: "1024x1024" // 
           })
         });
 
@@ -29,6 +29,11 @@ export const aiService = {
         }
 
         const data = await response.json();
+        
+        if (!data.data || !data.data[0] || !data.data[0].url) {
+          throw new Error("Invalid API Response. We expected an image URL but received: " + JSON.stringify(data));
+        }
+
         return data.data[0].url;
       };
 
@@ -38,7 +43,7 @@ export const aiService = {
         generateSingleImage(),
         generateSingleImage()
       ]);
-      
+
       return urls;
 
     } catch (error) {
